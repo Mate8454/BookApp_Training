@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,18 +9,20 @@ namespace BookApp.Entities
 {
     public class Orders
     {
-        [Required]
+        [Key]
         public int OrderId {  get; set; }
-        [Required]
+        [ForeignKey("User")]
         public int UserId {  get; set; }
-        [Required]
+        
         public DateTime OrderDate { get; set; }
-        [Required]
+        
         public double TotalAmount {  get; set; }
-        [Required]
+        
         public string Status {  get; set; }
-        [Required]
+        
         public string DeliveryAddress {  get; set; }
+
+        public User User { get; set; }  
         
 
     }

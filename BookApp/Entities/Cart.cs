@@ -11,20 +11,18 @@ namespace BookApp.Entities
     public class Cart
     {
         [Key]
-        [Required]
+        
         public int CartId {  get; set; }
-        [Required]
-        [ForeignKey(nameof(Books))]
-        public int BookId { get; set; }
-        [Required]
-        public string BookTitle { get; set; }
-        [Required]
-        [ForeignKey(nameof(User))]
+       
+       
+        [ForeignKey("User")]
         public int UserId { get; set; }
-        [Required]
-        public double TotalPrice { get; set; }
-        [Required]
-        public int Quantity { get; set; }
+        
+        public double CartTotalPrice { get; set; }
+
+        public List<OrderItem> OrderItems { get; set; }
+        public User User { get; set; } 
+        
 
     }
 }
