@@ -89,6 +89,7 @@
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\Orders.cs" />
+    <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
