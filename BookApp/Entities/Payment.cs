@@ -10,8 +10,7 @@ namespace BookApp.Entities
     {
         [Key]
         public int PaymentId { get; set; }
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+      
         [ForeignKey("Orders")]
         public int OrderId { get; set; }
         public DateTime PaymentDate { get; set; }
@@ -20,7 +19,7 @@ namespace BookApp.Entities
         public string PaymentStatus { get; set; }
 
         //navigation
-        public User user { get; set; }
-        public Orders orders { get; set; }
+        
+        public Orders Orders { get; set; }
     }
 }
