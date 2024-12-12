@@ -13,7 +13,7 @@ namespace BookApp.Entities
         public int BookId { get; set; }
 
        
-        public string BookTitile { get; set; }
+        public string BookTitle { get; set; }
       
         public string Author { get; set; }
 
