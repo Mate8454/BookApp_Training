@@ -7,13 +7,13 @@ namespace BookApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class UpdateBookTitleName : IMigrationMetadata
+    public sealed partial class AddQuantityinCart : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateBookTitleName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddQuantityinCart));
         
         string IMigrationMetadata.Id
         {
-            get { return "202412120722434_UpdateBookTitleName"; }
+            get { return "202412141140365_AddQuantityinCart"; }
         }
         
         string IMigrationMetadata.Source

@@ -11,11 +11,12 @@ namespace BookApp.Entities
     {
         [Key]
         public int OrderItemId { get; set; }
-       
+
         [ForeignKey("Orders")]
         public int OrderId { get; set; }
 
-        
+
+
         [ForeignKey("Books")]
         public int BookId { get; set; }
 
@@ -24,7 +25,9 @@ namespace BookApp.Entities
         public double OrderItemPrice { get; set; }
 
 
-        public Orders Orders { get; set; } // Navigation Property
+        
         public Books Books { get; set; }
+        public Orders Orders { get; set; }
+
     }
 }

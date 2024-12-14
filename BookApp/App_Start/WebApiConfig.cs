@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,6 +10,8 @@ namespace BookApp
     {
         public static void Register(HttpConfiguration config)
         {
+            var jsonFormatter = config.Formatters.JsonFormatter;
+            jsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             // Web API configuration and services
 
             // Web API routes
