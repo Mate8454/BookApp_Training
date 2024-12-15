@@ -26,10 +26,10 @@ namespace BookApp.Controllers
             return Ok(user);
         }
 
-        [Route("AuthenticateUser/{userid}/{password}")]
-        public IHttpActionResult AuthenticateUser(int userid, string password) 
+        [Route("AuthenticateUser/{email}/{password}")]
+        public IHttpActionResult AuthenticateUser(string email, string password) 
         {
-            if(repository.AuthenticateUser(userid, password))
+            if(repository.AuthenticateUser(email, password))
             {
                 return Ok("User Authenticate Sccessfull");
             }
