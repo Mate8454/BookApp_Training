@@ -19,18 +19,8 @@ namespace BookApp.Repositories
         {
             try
             {
-                var existingCartItem = context.Cart
-                                              .FirstOrDefault(e => e.UserId == cart.UserId && e.BookId == cart.BookId);
-
-                if (existingCartItem != null)
-                {
-                    existingCartItem.Quantity += cart.Quantity;  // Increment quantity
-                }
-                else
-                {
-                    context.Cart.Add(cart);  // Add new item to cart
-                }
-
+               
+                context.Cart.Add(cart);
                 context.SaveChanges();
             }
             catch (Exception ex)

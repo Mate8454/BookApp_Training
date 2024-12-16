@@ -13,7 +13,7 @@ namespace BookApp.Repositories
         void UpdateUser(User user);
         void DeleteUser(int userid);
 
-        bool AuthenticateUser(string email , string password);
+        User AuthenticateUser(string email , string password);
 
         User GetUserDetail(int userid);
 

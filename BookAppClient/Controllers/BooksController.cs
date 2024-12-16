@@ -21,12 +21,39 @@ namespace BookAppClient.Controllers
         }
 
         [Route("Books/GetAllBooks")]
+        //public ActionResult GetAllBooks()
+        //{
+        //    HttpResponseMessage response = client.GetAsync("Books/GetAllBooks").Result;
+        //    List<Books> books = JsonConvert.DeserializeObject<List<Books>>(response.Content.ReadAsStringAsync().Result);
+        //    return View(books);
+        //}
         public ActionResult GetAllBooks()
         {
+            // Get the list of books from the API
             HttpResponseMessage response = client.GetAsync("Books/GetAllBooks").Result;
             List<Books> books = JsonConvert.DeserializeObject<List<Books>>(response.Content.ReadAsStringAsync().Result);
-            return View(books);
+
+            // Get the user role from the session
+            string userRole = Session["UserRole"] as string; // Retrieve the stored role
+
+            if (userRole == "Admin")
+            {
+                // If the user is an Admin, show the Admin view
+                return View("AdminView", books); // Admin view (can include edit/delete options)
+            }
+            else if (userRole == "Customer")
+            {
+                // If the user is a Customer, show the Customer view
+                return View("CustomerView", books); // Customer view (show only add-to-cart options)
+            }
+            else
+            {
+                // If the user role is unknown, redirect them to the login page
+                return RedirectToAction("AuthenticateUser", "User");
+            }
         }
+
+
 
         [Route("Books/GetBooksByPublishedYear/{year}")]
         public ActionResult GetBooksByPublishedYear(int year)
@@ -122,6 +149,11 @@ namespace BookAppClient.Controllers
 
 
         }
+
+
+
+      
+
 
 
 

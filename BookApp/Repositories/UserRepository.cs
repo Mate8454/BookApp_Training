@@ -20,17 +20,10 @@ namespace BookApp.Repositories
             _bookContext.SaveChanges();
         }
 
-        public bool AuthenticateUser(string email, string password)
+        public User AuthenticateUser(string email, string password)
         {
             var user = _bookContext.User.SingleOrDefault(e=>e.Email == email && e.Password == password);
-            if (user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return user;
         }
 
         public void DeleteUser(int userid)

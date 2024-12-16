@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BookAppClient.Models.Books>
+
+<h2>Books (Admin)</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddBook", new { @class = "btn btn-primary" })
+</p>
+
+<!-- Grid Layout for Admin -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <img src="@item.BookCover" class="card-img-top" alt="Book cover" style="height: 300px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookTitle)</h5>
+                    <p class="card-text"><strong>Author:</strong> @Html.DisplayFor(modelItem => item.Author)</p>
+                    <p class="card-text"><strong>Price:</strong> $@Html.DisplayFor(modelItem => item.Price)</p>
+                    <p class="card-text"><strong>Category:</strong> @Html.DisplayFor(modelItem => item.Category)</p>
+
+                    <!-- Admin Actions: Edit and Delete -->
+                    <div class="d-flex justify-content-between">
+                        @Html.ActionLink("Edit", "UpdateBook", new { id = item.BookId }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Delete", "DeleteBook", new { id = item.BookId }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

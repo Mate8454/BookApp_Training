@@ -1,48 +1,41 @@
 ﻿@model IEnumerable<BookAppClient.Models.Books>
 
-@{
-    ViewBag.Title = "GetAllBooks";
-}
+<h2>Books (Customer)</h2>
 
-<h2>Books</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddBook", new { @class = "btn btn-primary" })
-</p>
 
-<!-- Grid Layout -->
+
+
+<!-- Grid Layout for Customers -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
-   
     @foreach (var item in Model)
     {
         <div class="col mb-4">
             <div class="card">
-                <!-- Book Cover Image -->
                 <img src="@item.BookCover" class="card-img-top" alt="Book cover" style="height: 300px; object-fit: cover;">
 
                 <div class="card-body">
-                    <!-- Book Title -->
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookTitle)</h5>
-
-                    <!-- Book Author -->
                     <p class="card-text"><strong>Author:</strong> @Html.DisplayFor(modelItem => item.Author)</p>
-
-                    <!-- Book Price -->
                     <p class="card-text"><strong>Price:</strong> $@Html.DisplayFor(modelItem => item.Price)</p>
-
-                    <!-- Book Category -->
                     <p class="card-text"><strong>Category:</strong> @Html.DisplayFor(modelItem => item.Category)</p>
 
-                    <!-- Actions -->
-                    <div class="d-flex justify-content-between">
-                        @Html.ActionLink("Details", "GetBookByTitle", new { title = item.BookTitle }, new { @class = "btn btn-info btn-sm" })
-                        @Html.ActionLink("Edit", "UpdateBook", new { id = item.BookId }, new { @class = "btn btn-warning btn-sm" })
-                        @Html.ActionLink("Delete", "DeleteBook", new { id = item.BookId }, new { @class = "btn btn-danger btn-sm" })
-                    </div>
+                    <!-- Customer Action: Add to Cart -->
+                    <form method="post" action="@Url.Action("AddToCart", "Cart")">
+                        <input type="hidden" name="bookId" value="@item.BookId" />
+                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     }
+
 </div>
+
+<!-- Go to Cart Button -->
+<button class="btn btn-primary" onclick="window.location.href='@Url.Action("GetCartItems", "Cart", new { userId = Session["UserId"] })'">
+    Go to Cart
+</button>
 
 <!-- Optional: Add pagination here if needed -->
