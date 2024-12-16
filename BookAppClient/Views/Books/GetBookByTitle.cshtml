@@ -1,0 +1,76 @@
+﻿@model BookAppClient.Models.Books
+
+<div>
+    <h4>Books</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BookTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookCover)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookCover)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublishedYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublishedYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

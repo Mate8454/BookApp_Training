@@ -47,7 +47,7 @@ namespace BookApp.Controllers
             return Ok(res);
         }
 
-        [Route("UpdateUser")]
+        [HttpPut ,Route("UpdateUser")]
         public IHttpActionResult UpdateUser(User user) 
         {
             repository.UpdateUser(user);

@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace BookApp.Controllers
 {
-    [RoutePrefix("cart")]
+    [RoutePrefix("Cart")]
     public class CartController : ApiController
     {
         private  CartRepository cartRepository;
@@ -22,7 +22,7 @@ namespace BookApp.Controllers
 
         // Add a book to the cart
         [HttpPost]
-        [Route("add")]
+        [Route("AddToCart")]
         public IHttpActionResult AddToCart(Cart cart)
         {
             try
@@ -43,7 +43,7 @@ namespace BookApp.Controllers
 
         // Delete a book from the cart
         [HttpDelete]
-        [Route("delete")]
+        [Route("DeleteCartItem")]
         public IHttpActionResult DeleteCartItem(int userId, int bookId)
         {
             try
@@ -63,7 +63,7 @@ namespace BookApp.Controllers
 
         // Get all cart items for a user
         [HttpGet]
-        [Route("get")]
+        [Route("GetCartItems")]
         public IHttpActionResult GetCartItems(int userId)
         {
             try

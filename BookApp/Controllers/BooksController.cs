@@ -32,7 +32,7 @@ namespace BookApp.Controllers
             return Ok("Book Added Sucessfully");
         }
 
-        [Route("DeleteBook{id}")]
+        [Route("DeleteBook/{id}")]
         public IHttpActionResult DeleteBook(int id) 
         { 
             _booksRepository.DeleteBook(id);
@@ -75,7 +75,7 @@ namespace BookApp.Controllers
             return Ok(res);
         }
 
-        [Route("UpdateBook")]
+        [HttpPut,Route("UpdateBook")]
         public IHttpActionResult UpdateBook([FromBody]Books book)
         {
             _booksRepository.UpdateBook(book);

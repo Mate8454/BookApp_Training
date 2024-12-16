@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace BookApp.Controllers
 {
-    [RoutePrefix("orders")]
+    [RoutePrefix("Orders")]
     public class OrderController : ApiController
     {
         private readonly OrderRepository _orderRepository;
@@ -22,7 +22,7 @@ namespace BookApp.Controllers
 
         // POST method to place an order
         [HttpPost]
-        [Route("placeorder")]
+        [Route("PlaceOrder")]
         public IHttpActionResult PlaceOrder(int userId, string deliveryAddress)
         {
             try
@@ -49,7 +49,7 @@ namespace BookApp.Controllers
 
         // GET method to get an order by its OrderId
         [HttpGet]
-        [Route("get/{orderId}")]
+        [Route("GetOrderById/{orderId}")]
         public IHttpActionResult GetOrderById(int orderId)
         {
             try
@@ -71,7 +71,7 @@ namespace BookApp.Controllers
 
         // GET method to get all orders by UserId
         [HttpGet]
-        [Route("userorders/{userId}")]
+        [Route("GetOrdersByUserId/{userId}")]
         public IHttpActionResult GetOrdersByUserId(int userId)
         {
             try
