@@ -90,5 +90,21 @@ namespace BookApp.Controllers
                 return InternalServerError(ex); // Return internal server error if something fails
             }
         }
+
+        [HttpGet]
+        [Route("GetAllOrders")]
+        public IHttpActionResult GetAllOrders()
+        {
+            var orders = _orderRepository.GetAllOrders();
+            return Ok(orders);
+        }
+
+        [HttpPut]
+        [Route("UpdateOrderStatus")]
+        public IHttpActionResult UpdateOrderStatus([FromBody]Orders orders)
+        {
+            _orderRepository.UpdateOrderStatus(orders);
+            return Ok("Order status Updated Successfully");
+        }
     }
 }

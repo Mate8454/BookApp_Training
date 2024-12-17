@@ -15,5 +15,9 @@ namespace BookApp.Repositories
 
         List<Orders> GetOrdersByUserId(int userId);
 
+        List<Orders> GetAllOrders();
+
+        void UpdateOrderStatus(Orders orders);
+
     }
 }

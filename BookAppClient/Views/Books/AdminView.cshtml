@@ -1,10 +1,18 @@
 ﻿@model IEnumerable<BookAppClient.Models.Books>
 
-<h2>Books (Admin)</h2>
+<h2>BookApp Corp.</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddBook", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "AddBook", new { @class = "btn btn-success" })
 </p>
+
+<p>
+    <!-- View All Orders button, links to GetAllOrders action -->
+    <a href="@Url.Action("GetAllOrders", "Orders")" class="btn btn-info">
+        View All Orders
+    </a>
+</p>
+
 
 <!-- Grid Layout for Admin -->
 <div class="row row-cols-1 row-cols-md-3 g-4">

@@ -24,21 +24,16 @@
             @Html.DisplayNameFor(model => model.Password)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.Role)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
+        
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-link" onclick="window.history.back();">Go Back</button>
 </p>

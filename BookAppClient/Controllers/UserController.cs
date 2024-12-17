@@ -11,41 +11,42 @@ using System.Web.Mvc;
 
 namespace BookAppClient.Controllers
 {
-    
-        public class UserController : Controller
+
+    public class UserController : Controller
+    {
+        private readonly HttpClient client;
+
+        public UserController()
         {
-            private readonly HttpClient client;
-
-            public UserController()
+            client = new HttpClient
             {
-                client = new HttpClient
+                BaseAddress = new Uri("http://localhost:50983/") // Set API Address
+            };
+        }
+
+        // ===================== Add User (GET) =====================
+        [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        // ===================== Add User (POST) =====================
+        [HttpPost]
+        public ActionResult AddUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("User/AddUser", content).Result;  // Blocking the async call here
+
+                if (response.IsSuccessStatusCode)
                 {
-                    BaseAddress = new Uri("http://localhost:50983/") // Set API Address
-                };
-            }
-
-            // ===================== Add User (GET) =====================
-            [HttpGet]
-            public ActionResult AddUser()
-            {
-                return View();
-            }
-
-            // ===================== Add User (POST) =====================
-            [HttpPost]
-            public async Task<ActionResult> AddUser(User user)
-            {
-                if (ModelState.IsValid)
-                {
-                    var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync("User/AddUser", content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("AuthenticateUser");
-                    }
+                    return RedirectToAction("AuthenticateUser");
                 }
-                return View(user);
             }
+            return View(user);
+        }
 
         //[Route("User/GetAllUsers")]
         //public ActionResult GetAllUsers()
@@ -84,6 +85,8 @@ namespace BookAppClient.Controllers
                     // If authentication is successful, store the user's role and ID in the session
                     Session["UserRole"] = user.Role;
                     Session["UserId"] = user.UserId;
+                    Session["Name"] = user.Name;
+                    Session["Email"] = user.Email;
 
                     // Redirect to the "GetAllBooks" action in the "Books" controller
                     return RedirectToAction("GetAllBooks", "Books");
@@ -107,44 +110,51 @@ namespace BookAppClient.Controllers
 
         // ===================== Get User Details =====================
         [HttpGet]
-            public async Task<ActionResult> GetUserDetails(int userid = 1)
-            {
-                HttpResponseMessage response = await client.GetAsync($"User/GetUserDetails/{userid}");
-                if (response.IsSuccessStatusCode)
-                {
-                    User user = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
-                    return View(user);
-                }
-                return View("Error", new HandleErrorInfo(new Exception("Failed to fetch user details"), "User", "GetUserDetails"));
-            }
+        public ActionResult GetUserDetails(int userid)
+        {
+            HttpResponseMessage response = client.GetAsync($"User/GetUserDetails/{userid}").Result;  // Blocking the async call here
 
-            // ===================== Update User (GET) =====================
-            [HttpGet]
-            public async Task<ActionResult> UpdateUser(int userid = 1)
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await client.GetAsync($"User/GetUserDetails/{userid}");
-                if (response.IsSuccessStatusCode)
-                {
-                    User user = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
-                    return View(user);
-                }
-                return View("Error", new HandleErrorInfo(new Exception("Failed to fetch user for update"), "User", "UpdateUser"));
-            }
-
-            // ===================== Update User (POST) =====================
-            [HttpPost]
-            public async Task<ActionResult> UpdateUser(User user)
-            {
-                if (ModelState.IsValid)
-                {
-                    var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync("User/UpdateUser", content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("GetUserDetails", new { userid = user.UserId });
-                    }
-                }
+                User user = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);  // Blocking the async call for reading content
                 return View(user);
             }
+
+            return View("Error", new HandleErrorInfo(new Exception("Failed to fetch user details"), "User", "GetUserDetails"));
+        }
+
+
+        // ===================== Update User (GET) =====================
+        [HttpGet]
+        public ActionResult UpdateUser(int userid )
+        {
+            HttpResponseMessage response = client.GetAsync($"User/GetUserDetails/{userid}").Result;  // Blocking async call
+
+            if (response.IsSuccessStatusCode)
+            {
+                User user = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);  // Blocking async call for reading content
+                return View(user);
+            }
+
+            return View("Error", new HandleErrorInfo(new Exception("Failed to fetch user for update"), "User", "UpdateUser"));
+        }
+
+        // ===================== Update User (POST) =====================
+        [HttpPost]
+        public ActionResult UpdateUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("User/UpdateUser", content).Result;  // Blocking async call
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("GetUserDetails", new { userid = user.UserId });
+                }
+            }
+
+            return View(user);
         }
     }
+}

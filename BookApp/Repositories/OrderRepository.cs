@@ -24,7 +24,7 @@ namespace BookApp.Repositories
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 DeliveryAddress = deliveryAddress,
-                Status = "Placed -- Awaiting Payment",  // The order is placed, awaiting processing
+                Status = "Placed",  // The order is placed, awaiting processing
                 OrderItems = new List<OrderItem>(),  // Initialize the order items list
                 TotalPrice = 0  // Initially set to 0, will be updated after calculation
             };
@@ -112,6 +112,37 @@ namespace BookApp.Repositories
                            .Include(o => o.OrderItems)  // Include order items
                            .Include(o => o.OrderItems.Select(oi => oi.Books))  // Include books in order items
                            .ToList();
+        }
+
+        public List<Orders> GetAllOrders()
+        {
+            return _context.Orders.ToList();
+        }
+
+        public void UpdateOrderStatus(Orders orders)
+        {
+            try
+            {
+                var order = _context.Orders.FirstOrDefault(b => b.OrderId == orders.OrderId);
+
+                if (order != null)
+                {
+
+                    order.Status = orders.Status;
+
+                    
+
+
+                    _context.SaveChanges();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

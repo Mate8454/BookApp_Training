@@ -1,6 +1,29 @@
 ﻿@model IEnumerable<BookAppClient.Models.Books>
 
-<h2>Books (Customer)</h2>
+<h2>Booksapp Corp.</h2>
+
+<div class="user-details mb-4">
+
+    @* Example: You may get user details via Session or some service *@
+
+    <p><strong>Hello</strong> @Session["Name"]</p>
+    @* Button to view user details *@
+    <div>
+        <button class="btn btn-info" onclick="window.location.href='@Url.Action("GetUserDetails", "User", new { userid = Session["UserId"] })'">
+            View My Profile
+        </button>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
 
 @if (TempData["Message"] != null)
 {
@@ -9,19 +32,27 @@
     </div>
 }
 
-<!-- Search Form -->
+<!-- Search Form and View Orders Button (Side by Side) -->
+<div class="row mb-4">
+    <!-- Search Form (Takes up 8 columns) -->
+    <div class="col-12 col-md-8">
+        <form method="get" id="searchForm">
+            <div class="input-group">
+                <!-- Input for book title -->
+                <input type="text" name="title" class="form-control" placeholder="Search by book title" id="bookTitle" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
 
-<div class="mb-4">
-    <!-- Form for searching book by title -->
-    <form method="get" id="searchForm">
-        <div class="input-group">
-            <!-- Input for book title -->
-            <input type="text" name="title" class="form-control" placeholder="Search by book title" id="bookTitle" />
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    </form>
+    <!-- View Orders Button (Takes up 4 columns) -->
+    <div class="col-12 col-md-4 text-end">
+        <button class="btn btn-secondary"
+                onclick="window.location.href='@Url.Action("GetOrdersByUserId", "Orders", new { userId = Session["UserId"] })'">
+            View Orders
+        </button>
+    </div>
 </div>
-
 
 <!-- Display Category Buttons -->
 <div class="category-buttons mb-4">
@@ -58,15 +89,12 @@
             </div>
         </div>
     }
-
 </div>
 
 <!-- Go to Cart Button -->
 <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GetCartItems", "Cart", new { userId = Session["UserId"] })'">
     Go to Cart
 </button>
-
-
 
 <script>
     // Add event listener for form submission

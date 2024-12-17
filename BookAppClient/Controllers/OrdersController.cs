@@ -101,5 +101,64 @@ namespace BookAppClient.Controllers
         }
 
 
+
+        [Route("GetAllOrders")]
+
+        public ActionResult GetAllOrders()
+        {
+            HttpResponseMessage response = client.GetAsync("Orders/GetAllOrders").Result;
+            List<Orders> orders = JsonConvert.DeserializeObject<List<Orders>>(response.Content.ReadAsStringAsync().Result);
+            return View(orders);
+        }
+
+        [Route("UpdateOrderStatus")]
+        public ActionResult UpdateOrderStatus(int orderId)
+        {
+            HttpResponseMessage response = client.GetAsync("Orders/GetOrderById/" + orderId).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // Log the error or handle it accordingly
+                // You can check response.StatusCode and response.Content for debugging
+                ModelState.AddModelError("", "Error retrieving order data. Please try again later.");
+                return View();  // or handle the error appropriately
+            }
+
+            try
+            {
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the response to an Orders object
+                Orders order = JsonConvert.DeserializeObject<Orders>(responseContent);
+                return View(order);
+            }
+            catch (JsonReaderException ex)
+            {
+                // Log the exception or handle the error
+                ModelState.AddModelError("", "Error parsing order data.");
+                return View();  // or handle the error appropriately
+            }
+        }
+
+
+        [HttpPost]
+
+        public ActionResult UpdateOrderStatus(Orders orders)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(orders), System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PutAsync("Orders/UpdateOrderStatus", content).Result;
+                return RedirectToAction("GetAllOrders");
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
     }
 }
