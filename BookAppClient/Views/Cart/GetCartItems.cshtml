@@ -52,7 +52,7 @@
     <h4 class="m-0">Total: $@Model.Sum(item => item.Quantity * item.Book.Price)</h4>
 
     <!-- Checkout Button -->
-    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+    <a href="@Url.Action("PlaceOrder", "Orders")" class="btn btn-success">
         <i class="fa fa-credit-card"></i> Proceed to Checkout
     </a>
 </div>

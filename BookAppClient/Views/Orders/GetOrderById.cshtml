@@ -1,0 +1,62 @@
+﻿@model BookAppClient.Models.Orders
+
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<h2>Order Details</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="order-summary">
+    <h3>Order Summary</h3>
+
+    <p><strong>Order ID:</strong> @Model.OrderId</p>
+    <p><strong>User ID:</strong> @Model.UserId</p>
+    <p><strong>Order Date:</strong> @Model.OrderDate</p>
+    <p><strong>Delivery Address:</strong> @Model.DeliveryAddress</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Total Price:</strong> @Model.TotalPrice</p>
+
+    <h4>Order Items</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Quantity</th>
+                <th>Price per Item</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.Books.BookId</td>  <!-- Assuming Books is correctly populated -->
+                    <td>@item.Quantity</td>
+                    <td>@(item.OrderItemPrice / item.Quantity)</td> <!-- Price per item -->
+                    <td>@item.OrderItemPrice</td> <!-- Total price per item -->
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- Optionally, add a button to return to the order history or homepage -->
+
+<a href="@Url.Action("AddPayment", "Payment", new { orderId = Model.OrderId })" class="btn btn-primary">Proceed to Payment</a>

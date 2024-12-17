@@ -138,7 +138,8 @@ namespace BookAppClient.Controllers
             {
                 // Deserialize the response content into a list of Cart items
                 var cartItems = JsonConvert.DeserializeObject<List<Cart>>(response.Content.ReadAsStringAsync().Result);
-                return View(cartItems); // Pass cart items to the view
+                    Session["CartItems"] = cartItems;
+                    return View(cartItems); // Pass cart items to the view
             }
             else
             {
@@ -164,7 +165,15 @@ namespace BookAppClient.Controllers
             return RedirectToAction("GetCartItems", new { userId = userId });
         }
 
-      
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+
+
+
+
+
 
 
 

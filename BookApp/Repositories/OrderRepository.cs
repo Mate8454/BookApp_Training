@@ -24,7 +24,7 @@ namespace BookApp.Repositories
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 DeliveryAddress = deliveryAddress,
-                Status = "Placed",  // The order is placed, awaiting processing
+                Status = "Placed -- Awaiting Payment",  // The order is placed, awaiting processing
                 OrderItems = new List<OrderItem>(),  // Initialize the order items list
                 TotalPrice = 0  // Initially set to 0, will be updated after calculation
             };
@@ -40,25 +40,38 @@ namespace BookApp.Repositories
             // Create order items from cart items
             foreach (var cartItem in cartItems)
             {
+                 // Calculate price for each item
+                
+
                 var orderItem = new OrderItem
                 {
+                    
                     BookId = cartItem.BookId,
                     Quantity = cartItem.Quantity,
-                    OrderItemPrice = cartItem.Quantity * cartItem.Book.Price,  // Price of each order item
-                    OrderId = order.OrderId  // Associate with the current order
+                    OrderItemPrice = cartItem.Quantity * cartItem.Book.Price,
+                    // Price of each order item
                 };
-
-                totalPrice += orderItem.OrderItemPrice;  // Add to the total price
+                totalPrice += orderItem.OrderItemPrice;
 
                 // Add the order item to the order's list of items
                 order.OrderItems.Add(orderItem);
             }
 
             // Set the total price of the order
-            order.TotalPrice = (int)totalPrice;  // Explicitly cast the double to int
+            order.TotalPrice = (int)totalPrice;  // Keep as double to avoid rounding
 
             // Add the order to the database
             _context.Orders.Add(order);
+
+            // Save changes to get the OrderId after the order is created
+            _context.SaveChanges();  // Now the order is saved, and OrderId is generated
+
+            // Now, assign the OrderId to each OrderItem and save them
+            foreach (var orderItem in order.OrderItems)
+            {
+                orderItem.OrderId = order.OrderId;  // Set the OrderId for each OrderItem
+                _context.OrderItem.Add(orderItem); // Save the order items to the database
+            }
 
             // Now that the order is placed, remove the cart items
             foreach (var cartItem in cartItems)
@@ -66,7 +79,7 @@ namespace BookApp.Repositories
                 _context.Cart.Remove(cartItem);
             }
 
-            // Save changes to the database
+            // Save changes to the database for cart removal and order items addition
             _context.SaveChanges();
 
             // Eager load OrderItems and User after saving to get the full data (related entities)

@@ -22,7 +22,7 @@ namespace BookApp.Controllers
 
         // POST method to place an order
         [HttpPost]
-        [Route("PlaceOrder")]
+        [Route("PlaceOrder/{userId}/{deliveryAddress}")]
         public IHttpActionResult PlaceOrder(int userId, string deliveryAddress)
         {
             try
