@@ -1,76 +1,65 @@
 ﻿@model BookAppClient.Models.Books
 
-<div>
-    <h4>Books</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BookTitle)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookQuantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookQuantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookCover)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookCover)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishedYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublishedYear)
-        </dd>
-
-    </dl>
+<!-- Page Header -->
+<div class="text-center">
+    <h2 class="display-4">Book Details</h2>
+    <p class="lead">Discover more about this book.</p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<!-- Back Button -->
+<div class="mb-4">
+    <button class="btn btn-outline-primary" onclick="window.history.back()">Back to Previous Page</button>
+</div>
+
+<!-- Book Details Container -->
+<div class="container">
+    <div class="row">
+        <!-- Book Cover -->
+        <div class="col-md-4">
+            <img src="@Model.BookCover" alt="Book cover" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto; object-fit: cover;">
+        </div>
+
+        <!-- Book Information -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Book Title -->
+                    <h3 class="card-title text-primary">@Model.BookTitle</h3>
+
+                    <!-- Author -->
+                    <p class="card-text"><strong>Author:</strong> @Model.Author</p>
+
+                    <!-- Price -->
+                    <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
+
+                    <!-- Category -->
+                    <p class="card-text"><strong>Category:</strong> @Model.Category</p>
+
+                    <!-- Description -->
+                    <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+
+                    <!-- Quantity -->
+                    <p class="card-text"><strong>Quantity Available:</strong> @Model.BookQuantity</p>
+
+                    <!-- Published Year -->
+                    <p class="card-text"><strong>Published Year:</strong> @Model.PublishedYear</p>
+                </div>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <div class="mt-4">
+                <form method="post" action="@Url.Action("AddToCart", "Cart")">
+                    <input type="hidden" name="bookId" value="@Model.BookId" />
+                    <button type="submit" class="btn btn-success btn-lg">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit and Back Links -->
+    <div class="text-center mt-4">
+        @Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId }, new { @class = "btn btn-warning btn-lg mr-2" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg ml-2" })
+    </div>
+</div>

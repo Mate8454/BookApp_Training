@@ -2,9 +2,36 @@
 
 <h2>Books (Customer)</h2>
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Message"]
+    </div>
+}
+
+<!-- Search Form -->
+
+<div class="mb-4">
+    <!-- Form for searching book by title -->
+    <form method="get" id="searchForm">
+        <div class="input-group">
+            <!-- Input for book title -->
+            <input type="text" name="title" class="form-control" placeholder="Search by book title" id="bookTitle" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
 
 
-
+<!-- Display Category Buttons -->
+<div class="category-buttons mb-4">
+    @foreach (var category in Model.Select(x => x.Category).Distinct())
+    {
+        <button class="btn btn-secondary btn-sm m-1" onclick="window.location.href='@Url.Action("GetBooksByCategory", "Books", new { category = category })'">
+            @category
+        </button>
+    }
+</div>
 
 <!-- Grid Layout for Customers -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -13,7 +40,6 @@
         <div class="col mb-4">
             <div class="card">
                 <img src="@item.BookCover" class="card-img-top" alt="Book cover" style="height: 300px; object-fit: cover;">
-
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookTitle)</h5>
                     <p class="card-text"><strong>Author:</strong> @Html.DisplayFor(modelItem => item.Author)</p>
@@ -30,7 +56,6 @@
             </div>
         </div>
     }
-
 </div>
 
 <!-- Go to Cart Button -->
@@ -38,4 +63,19 @@
     Go to Cart
 </button>
 
-<!-- Optional: Add pagination here if needed -->
+
+
+<script>
+    // Add event listener for form submission
+    document.getElementById("searchForm").addEventListener("submit", function (e) {
+        e.preventDefault();  // Prevent default form submission
+
+        // Get the book title from the input field
+        var title = document.getElementById("bookTitle").value.trim();
+
+        if (title) {
+            // Redirect to the desired route with the title as part of the URL path
+            window.location.href = "/Books/GetBookByTitle/" + encodeURIComponent(title);
+        }
+    });
+</script>

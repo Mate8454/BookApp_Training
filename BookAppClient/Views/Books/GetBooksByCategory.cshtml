@@ -1,75 +1,39 @@
 ﻿@model IEnumerable<BookAppClient.Models.Books>
 
 @{
-    ViewBag.Title = "GetBooksByCategory";
+    ViewBag.Title = "Books by Category";
 }
 
-<h2>GetBooksByCategory</h2>
+<h2>Books in Category: @ViewBag.Category</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BookTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookQuantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookCover)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublishedYear)
-        </th>
-        <th></th>
-    </tr>
+<!-- Back Button -->
+<button class="btn btn-secondary mb-4" onclick="window.history.back()">Back to Previous Page</button>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookQuantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookCover)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublishedYear)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookId })
-        </td>
-    </tr>
-}
+<!-- Grid Layout for Books in Category -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <img src="@item.BookCover" class="card-img-top" alt="Book cover" style="height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookTitle)</h5>
+                    <p class="card-text"><strong>Author:</strong> @Html.DisplayFor(modelItem => item.Author)</p>
+                    <p class="card-text"><strong>Price:</strong> $@Html.DisplayFor(modelItem => item.Price)</p>
+                    <p class="card-text"><strong>Category:</strong> @Html.DisplayFor(modelItem => item.Category)</p>
 
-</table>
+                    <!-- Customer Action: Add to Cart -->
+                    <form method="post" action="@Url.Action("AddToCart", "Cart")">
+                        <input type="hidden" name="bookId" value="@item.BookId" />
+                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Go to Cart Button -->
+<button class="btn btn-primary" onclick="window.location.href='@Url.Action("GetCartItems", "Cart", new { userId = Session["UserId"] })'">
+    Go to Cart
+</button>

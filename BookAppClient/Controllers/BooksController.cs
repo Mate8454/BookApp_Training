@@ -80,17 +80,52 @@ namespace BookAppClient.Controllers
             return View(books);
         }
 
-        [Route("Books/GetBookByTitle/{title}")]
+        //[Route("Books/GetBookByTitle/{title}")]
 
+        //public ActionResult GetBookByTitle(string title)
+        //{
+
+        //    HttpResponseMessage response = client.GetAsync($"Books/GetBookByTitle/{title}").Result;
+        //    Books movie = JsonConvert.DeserializeObject<Books>(response.Content.ReadAsStringAsync().Result);
+        //    return View(movie);
+
+        //}
+
+        [Route("Books/GetBookByTitle/{title}")]
         public ActionResult GetBookByTitle(string title)
         {
+            try
+            {
+                // Call the API to search for the book
+                HttpResponseMessage response = client.GetAsync($"Books/GetBookByTitle/{title}").Result;
 
-            HttpResponseMessage response = client.GetAsync($"Books/GetBookByTitle/{title}").Result;
-            Books movie = JsonConvert.DeserializeObject<Books>(response.Content.ReadAsStringAsync().Result);
-            return View(movie);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Deserialize the response content
+                    Books book = JsonConvert.DeserializeObject<Books>(response.Content.ReadAsStringAsync().Result);
 
+                    // Check if the book is found (book object might be null or empty)
+                    if (book == null)
+                    {
+                        TempData["Message"] = "Book not found.";
+                        return RedirectToAction("GetAllBooks"); // Or any other page where you want to redirect
+                    }
+
+                    return View(book); // Return the book details view if found
+                }
+                else
+                {
+                    TempData["Message"] = "Error retrieving book details.";
+                    return RedirectToAction("GetAllBooks"); // Or any other page where you want to redirect
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (e.g., API call failure)
+                TempData["Message"] = "An error occurred while searching for the book.";
+                return RedirectToAction("GetAllBooks"); // Redirect to the index or error page
+            }
         }
-
         [HttpGet]
         public ActionResult AddBook()
         {
