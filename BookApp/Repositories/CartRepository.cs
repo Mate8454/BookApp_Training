@@ -69,5 +69,19 @@ namespace BookApp.Repositories
                 throw new Exception("An error occurred while retrieving cart items.", ex);
             }
         }
+
+        //qunt
+        public Cart GetCartItemByUserAndBook(int userId, int bookId)
+        {
+            // Check if the user already has the book in the cart
+            return context.Cart.FirstOrDefault(ci => ci.UserId == userId && ci.BookId == bookId);
+        }
+
+        public void UpdateCartItem(Cart cart)
+        {
+            // Update the existing cart item with the new quantity
+            context.Entry(cart).State = EntityState.Modified;
+            context.SaveChanges();
+        }
     }
 }

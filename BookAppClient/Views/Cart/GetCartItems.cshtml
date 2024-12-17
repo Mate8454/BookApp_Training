@@ -1,43 +1,58 @@
 ﻿@model List<BookAppClient.Models.Cart>
 
-<h2>Your Cart</h2>
+<h2>Your Shopping Cart</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Book Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<!-- Shopping Cart Table -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
             <tr>
-                <td>@item.Book.BookTitle</td>
-                <td>@item.Quantity</td>
-                <td>@item.Book.Price</td>
-                <td>@(item.Quantity * item.Book.Price)</td>
-                <td>
-                    @using (Html.BeginForm("DeleteCartItem", "Cart", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" name="cartId" value="@item.CartId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    }
-                </td>
+                <th>Book Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Book.BookTitle</td>
+                    <td>@item.Quantity</td>
+                    <td>$@item.Book.Price</td>
+                    <td>$@(item.Quantity * item.Book.Price)</td>
+                    <td>
+                        @using (Html.BeginForm("DeleteCartItem", "Cart", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="userId" value="@item.UserId" />
+                            <input type="hidden" name="bookId" value="@item.BookId" />
+                            <input type="hidden" name="cartId" value="@item.CartId" />
 
-<button class="btn btn-primary">Proceed to Checkout</button>
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i> Remove
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-info" style="margin-top: 20px;">
-        @TempData["Message"]
-    </div>
-}
+<!-- Checkout & Cart Actions -->
+<div class="d-flex justify-content-between align-items-center">
+    <!-- Back to Book Catalog Button -->
+    <a href="@Url.Action("GetAllBooks", "Books")" class="btn btn-outline-primary">
+        <i class="fa fa-arrow-left"></i> Back to Book Catalog
+    </a>
+
+    <!-- Total Section -->
+    <h4 class="m-0">Total: $@Model.Sum(item => item.Quantity * item.Book.Price)</h4>
+
+    <!-- Checkout Button -->
+    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+        <i class="fa fa-credit-card"></i> Proceed to Checkout
+    </a>
+</div>

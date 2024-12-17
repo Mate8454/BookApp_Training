@@ -21,6 +21,26 @@ namespace BookApp.Controllers
         }
 
         // Add a book to the cart
+        //[HttpPost]
+        //[Route("AddToCart")]
+        //public IHttpActionResult AddToCart(Cart cart)
+        //{
+        //    try
+        //    {
+        //        if (cart == null || cart.Quantity <= 0)
+        //        {
+        //            return BadRequest("Invalid cart data.");
+        //        }
+
+        //        cartRepository.AddToCart(cart);
+        //        return Ok("Book added to cart successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
+
         [HttpPost]
         [Route("AddToCart")]
         public IHttpActionResult AddToCart(Cart cart)
@@ -32,7 +52,21 @@ namespace BookApp.Controllers
                     return BadRequest("Invalid cart data.");
                 }
 
-                cartRepository.AddToCart(cart);
+                // Check if the user already has the book in the cart
+                var existingCartItem = cartRepository.GetCartItemByUserAndBook(cart.UserId, cart.BookId);
+
+                if (existingCartItem != null)
+                {
+                    // If the book already exists in the cart, update the quantity
+                    existingCartItem.Quantity += cart.Quantity; // You can adjust this logic as per your requirement
+                    cartRepository.UpdateCartItem(existingCartItem);
+                }
+                else
+                {
+                    // If the book doesn't exist in the cart, add a new entry
+                    cartRepository.AddToCart(cart);
+                }
+
                 return Ok("Book added to cart successfully.");
             }
             catch (Exception ex)
