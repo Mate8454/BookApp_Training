@@ -32,15 +32,14 @@
 
                     <!-- Price -->
                     <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
-
+                    
                     <!-- Category -->
                     <p class="card-text"><strong>Category:</strong> @Model.Category</p>
 
                     <!-- Description -->
                     <p class="card-text"><strong>Description:</strong> @Model.Description</p>
 
-                    <!-- Quantity -->
-                    <p class="card-text"><strong>Quantity Available:</strong> @Model.BookQuantity</p>
+                    
 
                     <!-- Published Year -->
                     <p class="card-text"><strong>Published Year:</strong> @Model.PublishedYear</p>
@@ -58,8 +57,5 @@
     </div>
 
     <!-- Edit and Back Links -->
-    <div class="text-center mt-4">
-        @Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId }, new { @class = "btn btn-warning btn-lg mr-2" }) |
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg ml-2" })
-    </div>
+    
 </div>

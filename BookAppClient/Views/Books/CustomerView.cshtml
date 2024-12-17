@@ -52,10 +52,13 @@
                         <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
                     </form>
 
+                    <!-- Button to view book details -->
+                    <a href="@Url.Action("GetBookByTitle", "Books", new { title = item.BookTitle })" class="btn btn-primary btn-sm mt-2">View Details</a>
                 </div>
             </div>
         </div>
     }
+
 </div>
 
 <!-- Go to Cart Button -->
