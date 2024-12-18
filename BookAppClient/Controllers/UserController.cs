@@ -110,13 +110,13 @@ namespace BookAppClient.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            // Clear all session variables
-            Session.Clear();  // This will remove all session data
+            
+            Session.Clear();  
 
-            // Optionally, you can also abandon the session (this removes all session data, even across requests)
+            
             Session.Abandon();
 
-            // Redirect to the login page (or home page)
+            
             return RedirectToAction("AuthenticateUser", "User");
         }
 
