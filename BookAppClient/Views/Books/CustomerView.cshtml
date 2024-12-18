@@ -4,7 +4,7 @@
 
 <div class="user-details mb-4">
 
-    @* Example: You may get user details via Session or some service *@
+    
 
     <p><strong>Hello</strong> @Session["Name"]</p>
     @* Button to view user details *@
@@ -32,7 +32,7 @@
         <form method="get" id="searchForm">
             <div class="input-group">
                 <!-- Input for book title -->
-                <input type="text" name="title" class="form-control" placeholder="Search by book title" id="bookTitle" />
+                <input type="text" name="title" class="form-control" placeholder="Search by book title" id="bookTitle" required />
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
         </form>

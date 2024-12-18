@@ -163,8 +163,16 @@ namespace BookAppClient.Controllers
         
         public ActionResult DeleteBook(int id)
         {
-            HttpResponseMessage response = client.DeleteAsync($"Books/DeleteBook/{id}").Result;
-            return RedirectToAction("GetAllBooks");
+            try
+            {
+                HttpResponseMessage response = client.DeleteAsync($"Books/DeleteBook/{id}").Result;
+                return RedirectToAction("GetAllBooks");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("GetAllBooks");
+            }
 
 
 
