@@ -19,6 +19,7 @@ namespace BookAppClient.Models
         [Required(ErrorMessage = "Quantity is Required")]
         public int Quantity { get; set; }
         [ForeignKey("Book")]
+        
         public string BookCover { get; set; }
 
         public User User { get; set; }

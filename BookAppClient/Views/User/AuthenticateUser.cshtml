@@ -2,32 +2,45 @@
     ViewBag.Title = "User Authentication";
 }
 
-<div class="text-center">
-    <h1>BookApp</h1>
-    <h2>User Authentication</h2>
+<div class="container" style="max-width: 400px; margin-top: 50px;">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <!-- Header inside the Card -->
+            <div class="text-center mb-4">
+                <h1>BookApp</h1>
+                <h4>User Authentication</h4>
+            </div>
+
+            <!-- Form Start -->
+            @using (Html.BeginForm("AuthenticateUser", "User", FormMethod.Post))
+            {
+                <div class="form-group mb-3">
+                    @Html.Label("Email", new { @class = "form-label" })
+                    @Html.TextBox("email", null, new { @class = "form-control", placeholder = "Enter your email", required = "required" })
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.Label("Password", new { @class = "form-label" })
+                    @Html.Password("password", null, new { @class = "form-control", placeholder = "Enter your password", required = "required" })
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    @Html.ActionLink("Sign Up", "AddUser", "User", null, new { @class = "btn btn-secondary" })
+                </div>
+            }
+
+            <!-- Error Message -->
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger mt-3">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
-@using (Html.BeginForm("AuthenticateUser", "User", FormMethod.Post))
-{
-    <div class="form-group">
-        @Html.Label("Email", new { @class = "control-label" })
-        @Html.TextBox("email", null, new { @class = "form-control", placeholder = "Enter your email", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Password", new { @class = "control-label" })
-        @Html.Password("password", null, new { @class = "form-control", placeholder = "Enter your password", required = "required" })
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Login</button>
-        @Html.ActionLink("Sign Up", "AddUser", "User", null, new { @class = "btn btn-secondary" })
-    </div>
-}
-
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-danger" style="margin-top: 10px;">
-        @ViewBag.ErrorMessage
-    </div>
-}
+<!-- Bootstrap 5 CDN (Ensure to include these in your layout or directly here) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx3z3BvY1Jt6iw6ltr3wyuw4lq59+GSv3bcG2gtV8tzZ+1T7w58C4l+rwlw" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0n+I5Iu1zMGLwGo6/j3aIZ7lGbY2mj/jkRrW9dA7MZ0UbKe5" crossorigin="anonymous"></script>

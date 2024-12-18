@@ -3,7 +3,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Books</h4>
         <hr />
@@ -13,7 +13,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BookTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BookTitle,  new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.BookTitle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.BookTitle, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -76,12 +76,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-outline-danger" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="text-center mt-4">
+    <button class="btn btn-outline-warning" onclick="window.history.back();">Go to Book Catalog</button>
 </div>

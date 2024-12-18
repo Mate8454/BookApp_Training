@@ -41,16 +41,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.OrderItems)
+            @for (int i = 0; i < Model.OrderItems.Count / 2; i++)
             {
+                var item = Model.OrderItems[i];<!-- Access the item using the index -->
                 <tr>
                     <td>@item.Books.BookId</td>  <!-- Assuming Books is correctly populated -->
                     <td>@item.Quantity</td>
                     <td>@(item.OrderItemPrice / item.Quantity)</td> <!-- Price per item -->
                     <td>@item.OrderItemPrice</td> <!-- Total price per item -->
                 </tr>
-
             }
+
+
         </tbody>
     </table>
 

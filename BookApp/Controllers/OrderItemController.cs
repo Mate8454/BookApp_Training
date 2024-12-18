@@ -19,7 +19,7 @@ namespace BookApp.Controllers
             _orderItemRepository = new OrderItemRepository();
         }
 
-        // POST: api/orderitems/add
+        
         [HttpPost]
         [Route("add")]
         public IHttpActionResult AddOrderItem(OrderItem orderItem)
@@ -31,53 +31,53 @@ namespace BookApp.Controllers
                     return BadRequest("Order item cannot be null.");
                 }
 
-                // Add order item to the database
+               
                 _orderItemRepository.AddOrderItem(orderItem);
                 return Ok("Order item added successfully.");
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);  // Handle error and return proper response
+                return InternalServerError(ex);  
             }
         }
 
-        // DELETE: api/orderitems/remove/{orderItemId}
+        
         [HttpDelete]
         [Route("remove/{orderItemId}")]
         public IHttpActionResult RemoveOrderItem(int orderItemId)
         {
             try
             {
-                // Remove the order item from the database
+              
                 _orderItemRepository.RemoveOrderItem(orderItemId);
                 return Ok("Order item removed successfully.");
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);  // Handle error and return proper response
+                return InternalServerError(ex); 
             }
         }
 
-        // GET: api/orderitems/{orderId}
+        
         [HttpGet]
         [Route("{orderId}")]
         public IHttpActionResult GetAllOrderItems(int orderId)
         {
             try
             {
-                // Get all order items for the given OrderId
+               
                 var orderItems = _orderItemRepository.GetAllOrderItems(orderId);
 
                 if (orderItems == null || !orderItems.Any())
                 {
-                    return NotFound();  // Return 404 if no order items found
+                    return NotFound();  
                 }
 
-                return Ok(orderItems);  // Return 200 OK with the list of order items
+                return Ok(orderItems); 
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);  // Handle error and return proper response
+                return InternalServerError(ex);  
             }
         }
     }

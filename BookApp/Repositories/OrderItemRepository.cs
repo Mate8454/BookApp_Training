@@ -15,14 +15,14 @@ namespace BookApp.Repositories
             _context = new BookContext();
         }
 
-        // Add OrderItem to the database
+       
         public void AddOrderItem(OrderItem orderItem)
         {
             _context.OrderItem.Add(orderItem);
             _context.SaveChanges();
         }
 
-        // Remove an OrderItem by OrderItemId
+        
         public void RemoveOrderItem(int orderItemId)
         {
             var orderItem = _context.OrderItem.SingleOrDefault(o => o.OrderItemId == orderItemId);
@@ -33,12 +33,12 @@ namespace BookApp.Repositories
             }
         }
 
-        // Get all OrderItems for a specific OrderId
+       
         public List<OrderItem> GetAllOrderItems(int orderId)
         {
             return _context.OrderItem
                            .Where(o => o.OrderId == orderId)
-                           .Include(o => o.Books)  // Include book details
+                           .Include(o => o.Books)  
                            .ToList();
         }
     }

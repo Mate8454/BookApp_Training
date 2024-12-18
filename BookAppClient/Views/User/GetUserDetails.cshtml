@@ -1,39 +1,47 @@
 ﻿@model BookAppClient.Models.User
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<div class="container" style="max-width: 500px; margin-top: 50px;">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <h4>Hi! @Html.DisplayFor(model => model.Name)</h4>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <!-- User Details -->
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Role)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Role)
+                </dd>
+            </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+            <!-- Go Back Button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-warning" onclick="window.history.back();">Go to Book Catalog</button>
+            </div>
 
-       
+            <div class="text-center mt-4">
+                <!-- This button triggers the logout action and redirects the user -->
+                <a href="@Url.Action("Logout", "User")" class="btn btn-danger">Logout</a>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
 
-        
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    <button class="btn btn-link" onclick="window.history.back();">Go Back</button>
-</p>

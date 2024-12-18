@@ -14,32 +14,13 @@ namespace BookApp.Controllers
     {
         private  CartRepository cartRepository;
 
-        // If you are using DI, this constructor would be automatically injected.
+        
         public CartController()
         {
-            cartRepository = new CartRepository(); // In a real scenario, inject BookContext
+            cartRepository = new CartRepository(); 
         }
 
-        // Add a book to the cart
-        //[HttpPost]
-        //[Route("AddToCart")]
-        //public IHttpActionResult AddToCart(Cart cart)
-        //{
-        //    try
-        //    {
-        //        if (cart == null || cart.Quantity <= 0)
-        //        {
-        //            return BadRequest("Invalid cart data.");
-        //        }
-
-        //        cartRepository.AddToCart(cart);
-        //        return Ok("Book added to cart successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return InternalServerError(ex);
-        //    }
-        //}
+       
 
         [HttpPost]
         [Route("AddToCart")]
@@ -52,18 +33,18 @@ namespace BookApp.Controllers
                     return BadRequest("Invalid cart data.");
                 }
 
-                // Check if the user already has the book in the cart
+               
                 var existingCartItem = cartRepository.GetCartItemByUserAndBook(cart.UserId, cart.BookId);
 
                 if (existingCartItem != null)
                 {
-                    // If the book already exists in the cart, update the quantity
-                    existingCartItem.Quantity += cart.Quantity; // You can adjust this logic as per your requirement
+                    
+                    existingCartItem.Quantity += cart.Quantity; 
                     cartRepository.UpdateCartItem(existingCartItem);
                 }
                 else
                 {
-                    // If the book doesn't exist in the cart, add a new entry
+                    
                     cartRepository.AddToCart(cart);
                 }
 
@@ -75,7 +56,7 @@ namespace BookApp.Controllers
             }
         }
 
-        // Delete a book from the cart
+       
         [HttpDelete]
         [Route("DeleteCartItem")]
         public IHttpActionResult DeleteCartItem(int userId, int bookId)
@@ -87,7 +68,7 @@ namespace BookApp.Controllers
             }
             catch (InvalidOperationException)
             {
-                return NotFound();  // Item not found
+                return NotFound();  
             }
             catch (Exception ex)
             {
@@ -95,7 +76,7 @@ namespace BookApp.Controllers
             }
         }
 
-        // Get all cart items for a user
+       
         [HttpGet]
         [Route("GetCartItems")]
         public IHttpActionResult GetCartItems(int userId)
@@ -106,10 +87,10 @@ namespace BookApp.Controllers
 
                 if (cartItems == null || !cartItems.Any())
                 {
-                    return NotFound();  // No items found in cart
+                    return NotFound();  
                 }
 
-                return Ok(cartItems);  // Return cart items
+                return Ok(cartItems);  
             }
             catch (Exception ex)
             {

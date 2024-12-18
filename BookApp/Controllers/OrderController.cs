@@ -14,13 +14,13 @@ namespace BookApp.Controllers
     {
         private readonly OrderRepository _orderRepository;
 
-        // Constructor initializes the OrderRepository
+       
         public OrderController()
         {
             _orderRepository = new OrderRepository();
         }
 
-        // POST method to place an order
+      
         [HttpPost]
         [Route("PlaceOrder/{userId}/{deliveryAddress}")]
         public IHttpActionResult PlaceOrder(int userId, string deliveryAddress)
@@ -39,15 +39,15 @@ namespace BookApp.Controllers
                     return BadRequest("Failed to place the order.");
                 }
 
-                return Ok(order); // Return the order details
+                return Ok(order); 
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex); // Return internal server error if something fails
+                return InternalServerError(ex); 
             }
         }
 
-        // GET method to get an order by its OrderId
+       
         [HttpGet]
         [Route("GetOrderById/{orderId}")]
         public IHttpActionResult GetOrderById(int orderId)
@@ -58,18 +58,18 @@ namespace BookApp.Controllers
 
                 if (order == null)
                 {
-                    return NotFound(); // Return 404 if order not found
+                    return NotFound();
                 }
 
-                return Ok(order); // Return the order details
+                return Ok(order); 
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex); // Return internal server error if something fails
+                return InternalServerError(ex); 
             }
         }
 
-        // GET method to get all orders by UserId
+        
         [HttpGet]
         [Route("GetOrdersByUserId/{userId}")]
         public IHttpActionResult GetOrdersByUserId(int userId)
@@ -80,14 +80,14 @@ namespace BookApp.Controllers
 
                 if (orders == null || !orders.Any())
                 {
-                    return NotFound(); // Return 404 if no orders found
+                    return NotFound(); 
                 }
 
-                return Ok(orders); // Return all orders for the user
+                return Ok(orders); 
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex); // Return internal server error if something fails
+                return InternalServerError(ex); 
             }
         }
 

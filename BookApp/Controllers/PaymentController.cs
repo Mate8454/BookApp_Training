@@ -10,13 +10,13 @@ namespace BookApp.Controllers
     {
         private readonly IPaymentRepository _paymentRepository;
 
-        // Constructor for dependency injection
+       
         public PaymentController()
         {
             _paymentRepository = new PaymentRepository();
         }
 
-        // POST: api/Payment/AddPayment
+       
         [Route("AddPayment")]
         [HttpPost]
         public IHttpActionResult AddPayment(Payment payment)
@@ -33,12 +33,12 @@ namespace BookApp.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception or rethrow custom exception
+               
                 return InternalServerError(ex);
             }
         }
 
-        // GET: api/Payment/GetPaymentByOrderId/{orderId}
+        
         [Route("GetPaymentByOrderId/{orderId}")]
         [HttpGet]
         public IHttpActionResult GetPaymentByOrderId(int orderId)
@@ -49,19 +49,19 @@ namespace BookApp.Controllers
 
                 if (payment == null)
                 {
-                    return NotFound();  // Payment not found for the given orderId
+                    return NotFound();  
                 }
 
                 return Ok(payment);
             }
             catch (Exception ex)
             {
-                // Log exception or rethrow custom exception
+              
                 return InternalServerError(ex);
             }
         }
 
-        // GET: api/Payment/GetAllPayments
+   
         [Route("GetAllPayments")]
         [HttpGet]
         public IHttpActionResult GetAllPayments()
@@ -73,7 +73,7 @@ namespace BookApp.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception or rethrow custom exception
+              
                 return InternalServerError(ex);
             }
         }

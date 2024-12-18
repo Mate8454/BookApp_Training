@@ -3,7 +3,7 @@
 <h2>BookApp Corp.</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddBook", new { @class = "btn btn-success" })
+    @Html.ActionLink("Add New Book", "AddBook", new { @class = "btn btn-success" })
 </p>
 
 <p>
@@ -12,6 +12,11 @@
         View All Orders
     </a>
 </p>
+
+<div class="text-center mt-4">
+    <!-- This button triggers the logout action and redirects the user -->
+    <a href="@Url.Action("Logout", "User")" class="btn btn-danger">Logout</a>
+</div>
 
 
 <!-- Grid Layout for Admin -->

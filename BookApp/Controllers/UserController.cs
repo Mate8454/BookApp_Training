@@ -29,16 +29,15 @@ namespace BookApp.Controllers
         [Route("AuthenticateUser/{email}/{password}")]
         public IHttpActionResult AuthenticateUser(string email, string password)
         {
-            // Assuming you have a repository method to authenticate the user
             var user = repository.AuthenticateUser(email, password);
 
             if (user == null)
             {
-                // Return an error if the user is not found or invalid credentials
+               
                 return Content(HttpStatusCode.Unauthorized, "Invalid credentials.");
             }
 
-            // Return the user data if authentication is successful
+            
             return Ok(user );
         }
 

@@ -16,24 +16,24 @@ namespace BookAppClient.Controllers
         {
             HttpClient client;
 
-            // Constructor to initialize HttpClient and set base address
+            
             public PaymentController()
             {
                 client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:50983");  // Backend Web API URL
+                client.BaseAddress = new Uri("http://localhost:50983");  
             }
 
         [HttpGet]
         public ActionResult AddPayment(int orderId)
         {
-            // Create a new Payment object and set the OrderId
+            
             var payment = new Payment
             {
-                OrderId = orderId,  // Pass the OrderId to the Payment model
-                PaymentDate = DateTime.Now  // Optionally, set the default payment date
+                OrderId = orderId,  
+                PaymentDate = DateTime.Now  
             };
 
-            // Return the view with the Payment model
+           
             return View(payment);
 
         }

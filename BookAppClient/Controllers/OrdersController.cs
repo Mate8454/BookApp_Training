@@ -12,7 +12,7 @@ namespace BookAppClient.Controllers
     [RoutePrefix("Orders")]
     public class OrdersController : Controller
     {
-        // GET: Orders
+       
         HttpClient client;
         public OrdersController()
         {
@@ -33,27 +33,14 @@ namespace BookAppClient.Controllers
         {
             try
             {
-                // Ensure deliveryAddress is not empty
+                
                 if (string.IsNullOrEmpty(deliveryAddress))
                 {
                     TempData["ErrorMessage"] = "Delivery address cannot be empty.";
                     return RedirectToAction("Checkout");
                 }
 
-                // Create the order object with userId and deliveryAddress
-                //Orders newOrder = new Orders
-                //{
-                //    UserId = userId,
-                //    OrderDate = DateTime.Now,
-                //    DeliveryAddress = deliveryAddress,
-                //    Status = "Pending", // Default status
-                //    TotalPrice = 0  // Initially set to 0, will be updated after calculation
-                //};
-
-                // Serialize the order object to JSON for the API request
-               // StringContent content = new StringContent(JsonConvert.SerializeObject(newOrder), System.Text.Encoding.UTF8, "application/json");
-
-                // Send POST request to the API
+               
                 HttpResponseMessage response = client.PostAsync($"Orders/PlaceOrder/"+userId+"/"+deliveryAddress, null).Result;
 
                 if (response.IsSuccessStatusCode)
@@ -62,12 +49,12 @@ namespace BookAppClient.Controllers
                     var order = JsonConvert.DeserializeObject<Orders>(result);
                     TempData["SuccessMessage"] = "Order placed successfully!";
 
-                    // Redirect to the order details page after order is placed
+                   
                     return RedirectToAction("GetOrderById", new { orderId = order.OrderId });
                 }
                 else
                 {
-                    // Handle failure
+                   
                     TempData["ErrorMessage"] = $"Error placing order: {response.ReasonPhrase}";
                     return View();
                 }
@@ -118,30 +105,29 @@ namespace BookAppClient.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                // Log the error or handle it accordingly
-                // You can check response.StatusCode and response.Content for debugging
+               
                 ModelState.AddModelError("", "Error retrieving order data. Please try again later.");
-                return View();  // or handle the error appropriately
+                return View();  
             }
 
             try
             {
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
-                // Deserialize the response to an Orders object
+               
                 Orders order = JsonConvert.DeserializeObject<Orders>(responseContent);
                 return View(order);
             }
             catch (JsonReaderException ex)
             {
-                // Log the exception or handle the error
+           
                 ModelState.AddModelError("", "Error parsing order data.");
-                return View();  // or handle the error appropriately
+                return View();  
             }
         }
 
 
-        [HttpPost]
+        [HttpPost, Route("UpdateOrderStatus")]
 
         public ActionResult UpdateOrderStatus(Orders orders)
         {
