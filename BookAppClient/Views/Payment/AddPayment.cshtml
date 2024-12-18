@@ -48,12 +48,11 @@
         </div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PaymentStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.PaymentStatus, htmlAttributes: new { @class = "control-label col-md-2", style = "display:none;" })
             <div class="col-md-10">
                 <!-- Hidden input to set PaymentStatus to 'Success' by default -->
                 @Html.HiddenFor(model => model.PaymentStatus, new { @value = "Success" })
-
 
                 @Html.ValidationMessageFor(model => model.PaymentStatus, "", new { @class = "text-danger" })
             </div>
@@ -62,7 +61,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Pay" class="btn btn-success" />
             </div>
         </div>
     </div>
