@@ -198,6 +198,7 @@
     <Content Include="Views\Orders\GetOrdersByUserId.cshtml" />
     <Content Include="Views\Orders\GetAllOrders.cshtml" />
     <Content Include="Views\Orders\UpdateOrderStatus.cshtml" />
+    <Content Include="Views\Books\GetBooksByTitleCharacters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

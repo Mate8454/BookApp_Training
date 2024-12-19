@@ -179,9 +179,19 @@ namespace BookAppClient.Controllers
 
         }
 
+        [Route("Books/GetBooksByTitleCharacters/{characters}")]
+        public ActionResult GetBooksByTitleCharacters(string characters)
+        {
+            HttpResponseMessage response = client.GetAsync($"Books/GetBooksByTitleCharacters/{characters}").Result;
+            List<Books> books = JsonConvert.DeserializeObject<List<Books>>(response.Content.ReadAsStringAsync().Result);
+            return View(books);
+
+        }
 
 
-      
+
+
+
 
 
 

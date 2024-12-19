@@ -17,7 +17,7 @@ namespace BookAppClient.Models
         [DataType(DataType.DateTime)]
         public DateTime PaymentDate { get; set; }
 
-
+        [Required]
         public string PaymentMode { get; set; }
         public string PaymentStatus { get; set; }
 

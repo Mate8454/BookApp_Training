@@ -4,7 +4,7 @@
 
 <div class="user-details mb-4">
 
-    
+
 
     <p><strong>Hello</strong> @Session["Name"]</p>
     @* Button to view user details *@
@@ -37,15 +37,16 @@
             </div>
         </form>
     </div>
-        
+
     <!-- View Orders Button (Takes up 4 columns) -->
-    <div class="col-12 col-md-4 text-end">
+    <div class="col-12 col-md-4 text-md-end">
         <button class="btn btn-secondary"
                 onclick="window.location.href='@Url.Action("GetOrdersByUserId", "Orders", new { userId = Session["UserId"] })'">
             View Orders
         </button>
     </div>
 </div>
+
 
 <!-- Display Category Buttons -->
 <div class="category-buttons mb-4">
@@ -98,8 +99,9 @@
         var title = document.getElementById("bookTitle").value.trim();
 
         if (title) {
-            // Redirect to the desired route with the title as part of the URL path
-            window.location.href = "/Books/GetBookByTitle/" + encodeURIComponent(title);
+            // Redirect to the GetBooksByTitleCharacters route with the title as part of the URL path
+            window.location.href = "/Books/GetBooksByTitleCharacters/" + encodeURIComponent(title);
         }
     });
 </script>
+

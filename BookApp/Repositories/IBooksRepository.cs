@@ -19,7 +19,9 @@ namespace BookApp.Repositories
         List<Books> GetBooksByAuthor(string author);
 
         List<Books> GetBooksByPublishedYear(int year);
-        List<Books> GetBooksByCategory(string category);    
+        List<Books> GetBooksByCategory(string category);   
+        
+        List<Books> GetBooksByTitleCharacters(string characters);
 
 
     }

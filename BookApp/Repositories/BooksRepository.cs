@@ -129,6 +129,16 @@ namespace BookApp.Repositories
             }
         }
 
+        public List<Books> GetBooksByTitleCharacters(string characters)
+        {
+            var res = context.Books
+                 .Where(e => e.BookTitle.ToLower().Contains(characters.ToLower()))
+                 .ToList();
+            return res;
+        }
+
+
+
         public void UpdateBook(Books book)
         {
             try

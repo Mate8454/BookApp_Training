@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BookAppClient.Models.Books>
+
+@{
+    ViewBag.Title = "GetBooksByTitleCharacters";
+}
+
+<h2>GetBooksByTitleCharacters</h2>
+
+
+
+<div class="mb-4">
+    <button class="btn btn-outline-primary" onclick="window.history.back()">Back to Previous Page</button>
+</div>
+
+<!-- Row of Cards displaying the book details -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <!-- Book Cover Image -->
+                <img src="@item.BookCover" class="card-img-top" alt="Book cover" style="height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <!-- Book Title -->
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookTitle)</h5>
+
+                    <!-- Author Information -->
+                    <p class="card-text"><strong>Author:</strong> @Html.DisplayFor(modelItem => item.Author)</p>
+
+                    <!-- Price Information -->
+                    <p class="card-text"><strong>Price:</strong> $@Html.DisplayFor(modelItem => item.Price)</p>
+
+                    <!-- Category Information -->
+                    <p class="card-text"><strong>Category:</strong> @Html.DisplayFor(modelItem => item.Category)</p>
+
+                    <!-- Add to Cart Form -->
+                    <form method="post" action="@Url.Action("AddToCart", "Cart")">
+                        <input type="hidden" name="bookId" value="@item.BookId" />
+                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                    </form>
+
+                    <!-- Button to View Book Details -->
+                    <a href="@Url.Action("GetBookByTitle", "Books", new { title = item.BookTitle })" class="btn btn-primary btn-sm mt-2">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

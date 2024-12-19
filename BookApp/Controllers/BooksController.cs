@@ -84,5 +84,14 @@ namespace BookApp.Controllers
         }
 
 
+        [HttpGet,Route("GetBooksByTitleCharacters/{characters}")]
+
+        public IHttpActionResult GetBooksByTitleCharacters(string characters)
+        {
+            var res = _booksRepository.GetBooksByTitleCharacters(characters);
+            return Ok(res);
+        }
+
+
     }
 }
